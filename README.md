@@ -1,3 +1,7 @@
 # Simple_NET_Remoting
 
-![alt text](https://github.com/duyndh/Simple_NET_Remoting/blob/master/resources/demo.png)
+Server
+![Kiku](resources/server.png)
+
+Client
+![Kiku](resources/client.png)
