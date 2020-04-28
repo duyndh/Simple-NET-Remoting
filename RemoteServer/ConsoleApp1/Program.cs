@@ -19,7 +19,7 @@ namespace RemoteServer
 
         static void Main(string[] args)
         {
-            var remotableObject = new RemoteClass.RemoteClass();
+            //var remotableObject = new RemoteClass.RemoteClass();
 
             // using TCP protocol
             TcpChannel channel = new TcpChannel(PORT);
