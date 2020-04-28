@@ -11,16 +11,23 @@ namespace RemoteServer
 {
     class Program
     {
+        private const int PORT = 8085;
+
         static void Main(string[] args)
         {
-            TcpChannel ch = new TcpChannel(8085);
+            var remotableObject = new RemoteClass.RemoteClass();
 
-            ChannelServices.RegisterChannel(ch);
+            // using TCP protocol
+            TcpChannel channel = new TcpChannel(PORT);
+            ChannelServices.RegisterChannel(channel);
 
-            RemotingConfiguration.RegisterWellKnownServiceType(typeof(RemoteClass.RemoteClass), "test", WellKnownObjectMode.Singleton);
+            // Register
+            RemotingConfiguration.RegisterWellKnownServiceType(
+               typeof(RemoteClass.RemoteClass), 
+               "test",
+               WellKnownObjectMode.SingleCall);
 
-            Console.Write("Sever is ready ...");
-
+            Console.Write("Sever is running ...");
             Console.Read();
         }
     }
