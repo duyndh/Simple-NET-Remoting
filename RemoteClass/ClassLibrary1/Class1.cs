@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace RemoteClass
 {
+    //[Serializable]
     public class RemoteClass : MarshalByRefObject
     {
         private int _count = 0;
@@ -14,10 +15,10 @@ namespace RemoteClass
         {
         }
 
-        public int Increase(int x)
+        public string Ping()
         {
             _count++;
-            return x + 1;           
+            return "Pong";
         }
 
         public int GetCount()
