@@ -1,5 +1,5 @@
 ﻿// SingleCall / Singleton / ClientAO 
-#define Singleton
+#define ClientAO
 
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace RemoteClient
         private const int PORT = 8090;
         private const string APP_NAME = "RemoteTools";
 
-        static Tuple<string, string> GetInitData()
+        static string GetInitData()
         {
             // Get MAC address
             string address = string.Empty;
@@ -38,6 +38,7 @@ namespace RemoteClient
             // Get other info
             string info = string.Empty;
             {
+                info += string.Format("Physical Address: {0}\n", address);
                 info += String.Format("Machine Name: {0}\n", Environment.MachineName);
                 info += String.Format("OS Version: {0}\n", Environment.OSVersion.ToString());
                 info += String.Format("Processor count: {0}\n", Environment.ProcessorCount.ToString());
@@ -45,7 +46,7 @@ namespace RemoteClient
                 info += String.Format("User Name: {0}\n", Environment.UserName);
             }
 
-            return new Tuple<string, string>(address, info);
+            return info;
         }
 
         static void Main(string[] args)
@@ -67,8 +68,8 @@ namespace RemoteClient
             var remoteObject = new RemotableObjects.RemoteClass();
 #endif
 
-            var initData = GetInitData();
-            if (remoteObject.Init(initData.Item1, initData.Item2) == null)
+            var info = GetInitData();
+            if (remoteObject.Init(info) == null)
                 return;
 
             

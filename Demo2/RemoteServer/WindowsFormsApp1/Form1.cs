@@ -1,5 +1,5 @@
 ﻿// SingleCall / Singleton / ClientAO 
-#define Singleton
+#define ClientAO
 
 using System;
 using System.Collections.Generic;
@@ -58,7 +58,7 @@ namespace RemoteServer
 #else
             // Client Activated Objects
             RemotingConfiguration.ApplicationName = APP_NAME;
-            RemotingConfiguration.RegisterActivatedServiceType(typeof(RemoteClass.RemoteClass));
+            RemotingConfiguration.RegisterActivatedServiceType(typeof(RemotableObjects.RemoteClass));
 #endif
 
             RemotableObjects.Cache.Attach(this);
@@ -72,22 +72,17 @@ namespace RemoteServer
 
 
 
-            int iSpace = text.IndexOf(' ');
-            if (iSpace == -1)
-                return null;
+            //int iSpace = text.IndexOf(' ');
+            //if (iSpace == -1)
+            //    return null;
 
             
-            string address = text.Substring(0, iSpace);
-            string info = text.Substring(iSpace + 1);
-
-            this.textBoxAddress.Invoke((MethodInvoker)delegate
-            {
-                this.textBoxAddress.Text = address;
-            });
+            //string address = text.Substring(0, iSpace);
+            //string info = text.Substring(iSpace + 1);
 
             this.richTextBoxInfo.Invoke((MethodInvoker)delegate
             {
-                this.richTextBoxInfo.Text = info;
+                this.richTextBoxInfo.Text = text;
             });
 
             this.textBoxStatus.Invoke((MethodInvoker)delegate

@@ -20,9 +20,9 @@ namespace RemotableObjects
         {
         }
 
-        public string Init(string address, string info)
+        public string Init(string info)
         {
-            return Cache.Instance.SendNotify(EAction.Init, string.Format("{0} {1}", address, info));
+            return Cache.Instance.SendNotify(EAction.Init, info);
         }
 
         public string GetCommand()

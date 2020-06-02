@@ -34,10 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="RemotableObjects">
-      <HintPath>..\ClassLibrary1\bin\Debug\RemotableObjects.dll</HintPath>
-    </Reference>
-    <Reference Include="RemoteClass">
-      <HintPath>..\..\RemoteClass\ClassLibrary1\bin\Debug\RemoteClass.dll</HintPath>
+      <HintPath>..\ClassLibrary1\bin\Release\RemotableObjects.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
