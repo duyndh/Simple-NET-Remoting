@@ -16,17 +16,20 @@ namespace RemoteClient
 {
     class Program
     {
-        private const string serverIp = "192.168.11.102";
         private const int PORT = 8089;
         private const string APP_NAME = "test";
 
 
         static void Main(string[] args)
         {
+
+            var serverIp = args[0];
+
+
 #if !(ClientAO)
 
-            // Server Activated Objects
-            var remoteObject = (RemoteClass.RemoteClass)Activator.GetObject(
+        // Server Activated Objects
+        var remoteObject = (RemoteClass.RemoteClass)Activator.GetObject(
                 typeof(RemoteClass.RemoteClass),
                 string.Format("tcp://{0}:{1}/{2}", serverIp, PORT.ToString(), APP_NAME));
 

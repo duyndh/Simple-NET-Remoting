@@ -18,7 +18,6 @@ namespace RemoteClient
 {
     class Program
     {
-        private const string serverIp = "192.168.1.4";
         private const int PORT = 8090;
         private const string APP_NAME = "RemoteTools";
 
@@ -51,6 +50,8 @@ namespace RemoteClient
 
         static void Main(string[] args)
         {
+            var serverIp = args[0];
+
 #if !(ClientAO)
 
             // Server Activated Objects

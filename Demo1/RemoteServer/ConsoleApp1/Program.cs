@@ -38,7 +38,6 @@ namespace RemoteServer
 #endif
 
 
-
 #else
             // Client Activated Objects
             RemotingConfiguration.ApplicationName = APP_NAME;
