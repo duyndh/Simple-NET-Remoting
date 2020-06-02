@@ -1,5 +1,5 @@
 ﻿// SingleCall / Singleton / ClientAO 
-#define Singleton
+//#define Singleton
 
 using System;
 using System.Collections.Generic;
@@ -20,26 +20,36 @@ namespace RemoteClient
         private const string APP_NAME = "test";
 
 
+        enum Types
+        {
+            SingleCall = 1,
+            Singleton = 2,
+            ClientAO = 3
+        }
+
         static void Main(string[] args)
         {
+            var type = (Types)Int32.Parse(args[0]);
+            var serverIp = args[1];
 
-            var serverIp = args[0];
+            RemoteClass.RemoteClass remoteObject = null;
 
+            if (type != Types.ClientAO)
+            {
+                // Server Activated Objects
+                remoteObject = (RemoteClass.RemoteClass)Activator.GetObject(
+                        typeof(RemoteClass.RemoteClass),
+                        string.Format("tcp://{0}:{1}/{2}", serverIp, PORT.ToString(), APP_NAME));
+            }
+            else
+            {
+                // Client Activated Objects
+                RemotingConfiguration.RegisterActivatedClientType(
+                    typeof(RemoteClass.RemoteClass),
+                    string.Format("tcp://{0}:{1}/{2}", serverIp, PORT.ToString(), APP_NAME));
+                remoteObject = new RemoteClass.RemoteClass();
 
-#if !(ClientAO)
-
-        // Server Activated Objects
-        var remoteObject = (RemoteClass.RemoteClass)Activator.GetObject(
-                typeof(RemoteClass.RemoteClass),
-                string.Format("tcp://{0}:{1}/{2}", serverIp, PORT.ToString(), APP_NAME));
-
-#else
-            // Client Activated Objects
-            RemotingConfiguration.RegisterActivatedClientType(
-                typeof(RemoteClass.RemoteClass),
-                string.Format("tcp://{0}:{1}/{2}", serverIp, PORT.ToString(), APP_NAME));
-            var remoteObject = new RemoteClass.RemoteClass();
-#endif
+            }
 
             while (true)
             {                

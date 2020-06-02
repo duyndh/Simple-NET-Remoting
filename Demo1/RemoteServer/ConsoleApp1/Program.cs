@@ -1,5 +1,5 @@
 ﻿// SingleCall / Singleton / ClientAO 
-#define Singleton
+//#define SingleCall
 
 using System;
 using System.Collections.Generic;
@@ -17,6 +17,15 @@ namespace RemoteServer
         private const int PORT = 8089;
         private const string APP_NAME = "test";
 
+        enum Types
+        {
+            SingleCall = 1,
+            Singleton = 2,
+            ClientAO = 3
+        }
+
+        const Types REMOTE_TYPE = Types.Singleton;
+
         static void Main(string[] args)
         {
             //var remotableObject = new RemoteClass.RemoteClass();
@@ -25,24 +34,31 @@ namespace RemoteServer
             TcpChannel channel = new TcpChannel(PORT);
             ChannelServices.RegisterChannel(channel);
 
-#if !(ClientAO)
-
-            // Server Activated Objects
-            RemotingConfiguration.RegisterWellKnownServiceType(
-               typeof(RemoteClass.RemoteClass),
-               APP_NAME,
-#if (SingleCall)
-               WellKnownObjectMode.SingleCall);
-#else
-               WellKnownObjectMode.Singleton);
-#endif
-
-
-#else
-            // Client Activated Objects
-            RemotingConfiguration.ApplicationName = APP_NAME;
-            RemotingConfiguration.RegisterActivatedServiceType(typeof(RemoteClass.RemoteClass));
-#endif
+            if (REMOTE_TYPE != Types.ClientAO)
+            {
+                if (REMOTE_TYPE == Types.SingleCall)
+                {
+                    // Server Activated Objects
+                    RemotingConfiguration.RegisterWellKnownServiceType(
+                       typeof(RemoteClass.RemoteClass),
+                       APP_NAME,
+                       WellKnownObjectMode.SingleCall);
+                }
+                else
+                {
+                    // Server Activated Objects
+                    RemotingConfiguration.RegisterWellKnownServiceType(
+                       typeof(RemoteClass.RemoteClass),
+                       APP_NAME,
+                       WellKnownObjectMode.Singleton);
+                }
+            }
+            else
+            {
+                // Client Activated Objects
+                RemotingConfiguration.ApplicationName = APP_NAME;
+                RemotingConfiguration.RegisterActivatedServiceType(typeof(RemoteClass.RemoteClass));
+            }
             
             Console.Write("Sever is running ...");
             Console.Read();
