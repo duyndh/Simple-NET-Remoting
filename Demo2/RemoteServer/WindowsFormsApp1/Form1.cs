@@ -19,7 +19,6 @@ namespace RemoteServer
 {
     public partial class Form1 : Form, RemotableObjects.IObserver
     {
-        private const int PORT = 8090;
         private const string APP_NAME = "RemoteTools";
 
         private enum EStatus
@@ -35,12 +34,12 @@ namespace RemoteServer
         private EStatus _status = EStatus.Unavailable;
         private bool _terminateReady = false;
 
-        public Form1()
+        public Form1(int port)
         {
             InitializeComponent();
 
             // using TCP protocol
-            TcpChannel channel = new TcpChannel(PORT);
+            TcpChannel channel = new TcpChannel(port);
             ChannelServices.RegisterChannel(channel);
 
 #if !(ClientAO)

@@ -18,7 +18,6 @@ namespace RemoteClient
 {
     class Program
     {
-        private const int PORT = 8090;
         private const string APP_NAME = "RemoteTools";
 
         static string GetInitData()
@@ -53,6 +52,8 @@ namespace RemoteClient
         {
             var serverIp = args[0];
 
+            var port = Int32.Parse(args[1]);
+
 #if !(ClientAO)
 
             // Server Activated Objects
@@ -64,7 +65,7 @@ namespace RemoteClient
             // Client Activated Objects
             RemotingConfiguration.RegisterActivatedClientType(
                 typeof(RemotableObjects.RemoteClass),
-                string.Format("tcp://{0}:{1}/{2}", serverIp, PORT.ToString(), APP_NAME));
+                string.Format("tcp://{0}:{1}/{2}", serverIp, port.ToString(), APP_NAME));
             var remoteObject = new RemotableObjects.RemoteClass();
 #endif
 

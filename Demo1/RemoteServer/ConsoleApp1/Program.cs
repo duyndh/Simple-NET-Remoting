@@ -1,5 +1,5 @@
 ﻿// SingleCall / Singleton / ClientAO 
-//#define SingleCall
+//#define Singleton
 
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace RemoteServer
 {
     class Program
     {
-        private const int PORT = 8089;
+        //private const int PORT = 8089;
         private const string APP_NAME = "test";
 
         enum Types
@@ -24,19 +24,18 @@ namespace RemoteServer
             ClientAO = 3
         }
 
-        const Types REMOTE_TYPE = Types.Singleton;
-
         static void Main(string[] args)
         {
-            //var remotableObject = new RemoteClass.RemoteClass();
+            var type = (Types)Int32.Parse(args[0]);
+            var port = Int32.Parse(args[1]);
 
             // using TCP protocol
-            TcpChannel channel = new TcpChannel(PORT);
+            TcpChannel channel = new TcpChannel(port);
             ChannelServices.RegisterChannel(channel);
 
-            if (REMOTE_TYPE != Types.ClientAO)
+            if (type != Types.ClientAO)
             {
-                if (REMOTE_TYPE == Types.SingleCall)
+                if (type == Types.SingleCall)
                 {
                     // Server Activated Objects
                     RemotingConfiguration.RegisterWellKnownServiceType(

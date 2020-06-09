@@ -16,9 +16,7 @@ namespace RemoteClient
 {
     class Program
     {
-        private const int PORT = 8089;
         private const string APP_NAME = "test";
-
 
         enum Types
         {
@@ -31,6 +29,7 @@ namespace RemoteClient
         {
             var type = (Types)Int32.Parse(args[0]);
             var serverIp = args[1];
+            var port = Int32.Parse(args[2]);
 
             RemoteClass.RemoteClass remoteObject = null;
 
@@ -39,14 +38,14 @@ namespace RemoteClient
                 // Server Activated Objects
                 remoteObject = (RemoteClass.RemoteClass)Activator.GetObject(
                         typeof(RemoteClass.RemoteClass),
-                        string.Format("tcp://{0}:{1}/{2}", serverIp, PORT.ToString(), APP_NAME));
+                        string.Format("tcp://{0}:{1}/{2}", serverIp, port.ToString(), APP_NAME));
             }
             else
             {
                 // Client Activated Objects
                 RemotingConfiguration.RegisterActivatedClientType(
                     typeof(RemoteClass.RemoteClass),
-                    string.Format("tcp://{0}:{1}/{2}", serverIp, PORT.ToString(), APP_NAME));
+                    string.Format("tcp://{0}:{1}/{2}", serverIp, port.ToString(), APP_NAME));
                 remoteObject = new RemoteClass.RemoteClass();
 
             }
