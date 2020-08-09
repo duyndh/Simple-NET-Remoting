@@ -2,6 +2,6 @@
 
 Demo:
 
-Simple Remote Excute Tool using .NET Remoting
+Simple Remote Execute Tool using .NET Remoting
 
 ![](resources/demo.png)
