@@ -1,4 +1,4 @@
-# Simple_NET_Remoting
+# Simple NET Remoting
 
 Demo
 
