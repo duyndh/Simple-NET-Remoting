@@ -1,4 +1,7 @@
 # Simple_NET_Remoting
 
-Demo
-![Kiku](resources/demo.png)
+Demo:
+
+Simple Remote Excute Tool using .NET Remoting
+
+![](resources/demo.png)
